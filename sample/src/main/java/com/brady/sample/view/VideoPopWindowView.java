@@ -12,12 +12,12 @@ import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.view.ViewUtil;
 import com.brady.sample.R;
 import com.brady.sample.view.i.IPopupCallback;
 import com.brady.sample.view.i.IPopupSubView;
-
+import com.brady.sample.view.popupwindow.BasePopupWindow;
 
 
 /**
@@ -26,7 +26,7 @@ import com.brady.sample.view.i.IPopupSubView;
  * @date 2017-03-28
  * @description 支付方式弹窗,播放视频
  */
-public class MemberOpenAnimationVideoView implements IPopupSubView, View.OnClickListener,
+public class VideoPopWindowView implements IPopupSubView, View.OnClickListener,
         MediaPlayer.OnPreparedListener,MediaPlayer.OnCompletionListener {
     private LinearLayout rootView = null;
     private Activity parent;
@@ -38,12 +38,12 @@ public class MemberOpenAnimationVideoView implements IPopupSubView, View.OnClick
     private String animationPath ="";
     private MediaController mc;
 
-    public MemberOpenAnimationVideoView(Activity parent) {
+    public VideoPopWindowView(Activity parent) {
         this.parent = parent;
         initUI();
     }
 
-    public MemberOpenAnimationVideoView(Activity parent, int callbackCode, IPopupCallback callback) {
+    public VideoPopWindowView(Activity parent, int callbackCode, IPopupCallback callback) {
         this.parent = parent;
         this.mCallback = callback;
         this.callbackCode = callbackCode;

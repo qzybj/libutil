@@ -1,4 +1,4 @@
-package com.brady.sample.view;
+package com.brady.sample.view.popupwindow;
 
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;

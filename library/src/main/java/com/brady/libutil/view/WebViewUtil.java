@@ -11,7 +11,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.RenderPriority;
 import android.webkit.WebView;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -172,7 +172,7 @@ public class WebViewUtil {
 	 */
 	public static ArrayList<String> fetchURL(String htmlStr) {
 		ArrayList<String> pics = new ArrayList<String>();
-		CLog.log(htmlStr);
+		CLog.d(htmlStr);
 		String regEx_img = "<img.*?src=\"http://(.*?).jpg\""; // 图片链接地址
 		Pattern p_image = Pattern.compile(regEx_img, Pattern.CASE_INSENSITIVE);
 		Matcher m_image = p_image.matcher(htmlStr);

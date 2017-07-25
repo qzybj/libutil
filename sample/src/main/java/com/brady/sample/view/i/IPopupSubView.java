@@ -3,7 +3,7 @@ package com.brady.sample.view.i;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import com.brady.sample.view.BasePopupWindow;
+import com.brady.sample.view.popupwindow.BasePopupWindow;
 
 
 /**

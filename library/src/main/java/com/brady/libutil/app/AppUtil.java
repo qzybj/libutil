@@ -10,7 +10,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.os.Parcelable;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.UtilsManager;
 
 import java.io.File;

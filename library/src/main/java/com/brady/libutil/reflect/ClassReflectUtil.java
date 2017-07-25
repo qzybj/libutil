@@ -1,7 +1,7 @@
 package com.brady.libutil.reflect;
 
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.data.MapUtil;
 
 import java.lang.reflect.Constructor;

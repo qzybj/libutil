@@ -6,7 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.data.StringUtil;
 
 import java.lang.reflect.ParameterizedType;

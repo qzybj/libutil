@@ -3,7 +3,7 @@ package com.brady.libutil.io;
 import android.content.Context;
 import android.os.Environment;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

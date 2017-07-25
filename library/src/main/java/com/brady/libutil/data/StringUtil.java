@@ -1,7 +1,7 @@
 package com.brady.libutil.data;
 
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -303,14 +303,15 @@ public class StringUtil {
     
 
 	/**
-	 * 如果传入的字符串是null/""  返回""
+	 * 如果传入的字符串是 null 返回 "" ,否则返回 str.trim()
 	 * 否则返回传入的字符串
 	 * @param str
 	 * @return
 	 */
 	public static String stringFilter(String str){
-		return isEmpty(str)?"":str;
+		return isEmpty(str)?"":str.trim();
 	}
+
 
     /**
      * 将字符串按照url的方式转义

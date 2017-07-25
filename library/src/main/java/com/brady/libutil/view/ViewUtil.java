@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 
 
 /**

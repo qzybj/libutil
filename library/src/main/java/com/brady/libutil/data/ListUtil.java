@@ -1,7 +1,7 @@
 package com.brady.libutil.data;
 
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

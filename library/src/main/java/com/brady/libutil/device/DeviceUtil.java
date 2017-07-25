@@ -11,7 +11,7 @@ import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.UtilsManager;
 import com.brady.libutil.data.StringUtil;
 

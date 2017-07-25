@@ -3,7 +3,7 @@ package com.brady.libutil.h5;
 import android.net.Uri;
 
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import com.brady.libutil.data.StringUtil;
 
 import org.json.JSONException;

@@ -1,6 +1,6 @@
 package com.brady.libutil.data;
 
-import com.brady.libutil.CLog;
+import com.brady.libutil.log.CLog;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
