@@ -142,5 +142,4 @@ public class DateUtil {
         c.setTime(date);
         return c;
     }
-
 }

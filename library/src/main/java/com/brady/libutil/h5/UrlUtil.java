@@ -17,9 +17,9 @@ import java.util.Set;
 
 
 /**URL辅助工具类*/
-public class WebUrlUtil {
+public class UrlUtil {
 
-	public static final String TAG =WebUrlUtil.class.getName();
+	public static final String TAG =UrlUtil.class.getName();
 	
 	/**
 	 * 获取URL中指定key的参数 

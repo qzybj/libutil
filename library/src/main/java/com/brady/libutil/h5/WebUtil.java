@@ -11,7 +11,7 @@ import static android.util.Patterns.GOOD_IRI_CHAR;
  * Created by ZhangYuanBo on 2016/5/20.
  *  网址判断
  */
-public class WebAddres {
+public class WebUtil {
 
     static final int MATCH_GROUP_SCHEME = 1;
     static final int MATCH_GROUP_AUTHORITY = 2;
@@ -37,13 +37,13 @@ public class WebAddres {
 
     /**
      * parses given uriString.
-     * 用法:将需要判断的url传入,new WebAddres(address) 如果抛出异常,则会出现问题
+     * 用法:将需要判断的url传入,new WebUtil(address) 如果抛出异常,则会出现问题
      */
-    public WebAddres(String address) throws ParseException {
+    public WebUtil(String address) throws ParseException {
         if (address == null) {
             throw new NullPointerException();
         }
-        // android.util.Log.d(LOGTAG, "WebAddres: " + address);
+        // android.util.Log.d(LOGTAG, "WebUtil: " + address);
         mScheme = "";
         mHost = "";
         mPort = -1;
