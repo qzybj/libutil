@@ -6,11 +6,11 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.1'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         //自动上传至Bintray插件
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.2'
-        //自动化Maven打包插件
-        //classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'
+        //自动化Maven打包插件,添加JitPack依赖
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.5'
