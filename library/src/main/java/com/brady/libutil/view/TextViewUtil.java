@@ -31,6 +31,14 @@ public class TextViewUtil {
 		return null;
 	}
 
+	/**
+	 * 设置TextView的值，
+	 * @param tv
+	 * @param s
+	 */
+	public static void setValue(TextView tv, String s){
+		setValue(tv,s,false);
+	}
 
 	/**
 	 * 设置TextView的值，

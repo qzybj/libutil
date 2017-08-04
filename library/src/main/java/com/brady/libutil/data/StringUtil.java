@@ -52,18 +52,6 @@ public class StringUtil {
         }
         return str1.equals(str2);
     }
-    
-    /**
-	 * Filter string.
-	 * @param str
-	 * @return
-	 */
-	public static String format(String str){
-		if(isEmpty(str)){
-			return EMPTY_STRING ;
-		}
-		return str.trim();
-	}
 
     /**
      * 比较两个字符串（大小写不敏感）。
@@ -86,6 +74,17 @@ public class StringUtil {
         }
         return str1.equalsIgnoreCase(str2);
     }
+
+    /**
+     * 如果传入的字符串是 null 返回 "" ,否则返回 str.trim()
+     * 否则返回传入的字符串
+     * @param str
+     * @return
+     */
+    public static String format(String str){
+        return isEmpty(str)?EMPTY_STRING:str.trim();
+    }
+
 
     /**
      * 检查字符串是否为<code>null</code>或空字符串<code>""</code>。
@@ -282,7 +281,7 @@ public class StringUtil {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(str.charAt(i)) == false) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
@@ -301,17 +300,6 @@ public class StringUtil {
     	return Pattern.compile("([1-9]+[0-9]*|0)(\\.[\\d]+)?").matcher(str).matches();
     }
     
-
-	/**
-	 * 如果传入的字符串是 null 返回 "" ,否则返回 str.trim()
-	 * 否则返回传入的字符串
-	 * @param str
-	 * @return
-	 */
-	public static String stringFilter(String str){
-		return isEmpty(str)?"":str.trim();
-	}
-
 
     /**
      * 将字符串按照url的方式转义
@@ -554,6 +542,7 @@ public class StringUtil {
         }
         return returnList;
     }
+
     public static int str2Int(String str, int defValue){
         int i;
         try {
@@ -586,4 +575,20 @@ public class StringUtil {
         }
     }
 
+    /**
+     * 获取指定字符串出现的次数
+     *
+     * @param srcText 源字符串
+     * @param findText 要查找的字符串
+     * @return 出现的次数
+     */
+    public static int appearNumber(String srcText, String findText) {
+        int count = 0;
+        Pattern p = Pattern.compile(findText);
+        Matcher m = p.matcher(srcText);
+        while (m.find()) {
+            count++;
+        }
+        return count;
+    }
 }
