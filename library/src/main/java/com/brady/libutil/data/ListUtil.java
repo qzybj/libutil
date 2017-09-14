@@ -90,4 +90,28 @@ public class ListUtil {
 		}
 		return new ArrayList<>(Arrays.asList(array));
 	}
+
+	/**
+	 * 获取集合长度
+	 * @param tagetList
+	 * @return
+	 */
+	public static int getSize(List tagetList){
+		if( null == tagetList ){
+			return 0;
+		}
+		return tagetList.size() ;
+	}
+
+	/**
+	 * 获取集合长度
+	 * @param params
+	 * @return
+	 */
+	public static int getSize(Object[] params){
+		if(params == null){
+			return 0 ;
+		}
+		return params.length ;
+	}
 }

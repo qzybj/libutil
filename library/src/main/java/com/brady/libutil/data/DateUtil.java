@@ -39,6 +39,9 @@ public class DateUtil {
     /**  格式  20101201231506 */
     public static String FORMAT_YMDHMS_ALLNUMBER="yyyyMMddHHmmss";
 
+    /**格式 2013/08/09 05:54:32.578*/
+    public static String FORMAT_YYYYMMDDHHMMSSSSS = "yyyyMMdd HH:mm:ss.SSS";
+
     /**1秒的毫秒数*/
     public static final long SECOND = 1000L;
     /**1分钟的毫秒数*/
@@ -46,8 +49,6 @@ public class DateUtil {
 
     /**一天的毫秒数*/
     private static final long DAY_MS = 24*60*MINUTE;
-
-
 
 
     /**
