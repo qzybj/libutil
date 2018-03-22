@@ -51,6 +51,4 @@ public class DensityUtil {
 		return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue,
 				UtilsManager.instance().getResources().getDisplayMetrics());
 	}
-
-
 }

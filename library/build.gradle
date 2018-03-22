@@ -6,7 +6,7 @@ group='com.github.qzybj'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         minSdkVersion 15
         targetSdkVersion 25

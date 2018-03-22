@@ -591,4 +591,25 @@ public class StringUtil {
         }
         return count;
     }
+
+    /**
+     * 检查参数是否都不为空,有为空就返回true
+     * @param objects
+     * @return
+     */
+    public static boolean isContainsNulls(Object[] objects){
+        if( objects == null ){
+            return true ;
+        }
+        for(Object o:objects){
+            if( o instanceof  String){
+                if(StringUtil.isEmpty((String) o)){
+                    return true ;
+                }
+            }else if( o == null ){
+                return true ;
+            }
+        }
+        return false ;
+    }
 }

@@ -3,6 +3,7 @@ package com.brady.libutil.io;
 import android.content.Context;
 import android.os.Environment;
 
+import com.brady.libutil.UtilsManager;
 import com.brady.libutil.log.CLog;
 
 import java.io.BufferedReader;
@@ -20,23 +21,21 @@ public class FileUtil {
 
     /**
      * 获取程序外部的缓存目录
-     * @param context
      * @return
      */
-    public static File getExternalCacheDir(Context context) {
-        final String cacheDir = "/Android/data/" + context.getPackageName() + "/cache/";
+    public static File getExternalCacheDir(Context con) {
+        final String cacheDir = "/Android/data/" + con.getPackageName() + "/cache/";
         return new File(Environment.getExternalStorageDirectory().getPath() + cacheDir);
     }
 
     /**
      * 获取可以使用的缓存目录,如果有内存卡，优先使用内存卡，否则使用手机自带存储空间。
-     * @param context
      * @param uniqueName 目录名称
      * @return
      */
-    public static File getDiskCacheDir(Context context, String uniqueName) {
+    public static File getDiskCacheDir(Context con,String uniqueName) {
         final String cachePath = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ?
-                getExternalCacheDir(context).getPath() : context.getCacheDir().getPath();
+                getExternalCacheDir(con).getPath() : UtilsManager.instance().getCacheDir().getPath();
         return new File(cachePath + File.separator + uniqueName);
     }
 
@@ -46,36 +45,37 @@ public class FileUtil {
      * @param data
      * @param append  true时，并且文件存在，是追加内容到文件
      */
-    public static void writeFile(String filePath, String data, boolean append){
+    public static void writeFile(String filePath, String data,
+                                 boolean append) {
         File targetFile = new File(filePath);
-        File dir = targetFile ;
-        if( !targetFile.isDirectory() ){
+        File dir = targetFile;
+        if (!targetFile.isDirectory()) {
             dir = targetFile.getParentFile();
         }
-        if(!dir.exists()){
+        if (!dir.exists()) {
             dir.mkdirs();
         }
-        OutputStreamWriter output = null ;
-        BufferedReader buffer = null ;
+        OutputStreamWriter output = null;
+        BufferedReader buffer = null;
         String line;
-        try{
-            output = new OutputStreamWriter(new FileOutputStream(targetFile,append));
+        try {
+            output = new OutputStreamWriter(new FileOutputStream(targetFile, append));
             buffer = new BufferedReader(new InputStreamReader(new ByteArrayInputStream(data.getBytes())));
             while ((line = buffer.readLine()) != null) {
                 output.write(line);
             }
             output.flush();
-        }catch(Exception e){
+        } catch (Exception e) {
             CLog.e(e);
-        }finally{
-            if( output != null ){
+        } finally {
+            if (output != null) {
                 try {
                     output.close();
                 } catch (IOException e) {
                     CLog.e(e);
                 }
             }
-            if( buffer != null ){
+            if (buffer != null) {
                 try {
                     buffer.close();
                 } catch (IOException e) {

@@ -50,7 +50,7 @@ public class CLog {
     public static  void e(String tag, String msg, Throwable e) {
         if(isOn()){
             if(e != null && !TextUtils.isEmpty(e.getMessage())){
-                msg = StringUtil.stringFilter(msg) + e.getMessage();
+                msg = StringUtil.format(msg) + e.getMessage();
             }
             log(LogType.E,tag,msg,getMethodInfo());
         }

@@ -1,5 +1,7 @@
 package com.brady.libutil.data;
 
+import com.brady.libutil.interfaces.ISummation;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -66,4 +68,22 @@ public class MapUtil {
 		return null;
 	}
 
+	/**
+	 * 查询map中是否有已添加的Item，如果存在则累加
+	 * @param map
+	 * @param item
+	 */
+	private static void summation2Map(Map<String,ISummation> map,
+									  ISummation item){
+		if(map!=null&&item!=null&&StringUtil.isNotEmpty(item.getKey())){
+			if(map.containsKey(item.getKey())){
+				ISummation sourceBean = map.get(item.getKey());
+				int num = sourceBean.getProductNum() + item.getProductNum();
+				sourceBean.setProductNum(num);
+				map.put(item.getKey(), sourceBean);
+			}else{
+				map.put(item.getKey(),item);
+			}
+		}
+	}
 }

@@ -18,6 +18,7 @@ import java.io.File;
 
 /** App相关工具类,包*/
 public class AppUtil {
+
     private static PackageInfo mPackageInfo;
 
     public static PackageInfo getPackageInfo(){

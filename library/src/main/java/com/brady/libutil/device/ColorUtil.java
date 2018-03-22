@@ -1,6 +1,5 @@
 package com.brady.libutil.device;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -24,10 +23,10 @@ public class ColorUtil {
     }
 
     /**获取指定的颜色值的16进制表现形式。0xAARRGGBB*/
-    public static int getResourceColor(Context con, int colorId) {
-        if (con != null&&colorId>0) {
+    public static int getResourceColor( int colorId) {
+        if (colorId > 0) {
             try {
-                return con.getResources().getColor(colorId);
+                return UtilsManager.instance().getResources().getColor(colorId);
             } catch (Resources.NotFoundException e) {
                 e.printStackTrace();
             }

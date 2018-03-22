@@ -36,13 +36,12 @@ public class NetUtil {
 	/**
 	 * 获取当然有效的网络类型，该函数只区分WIFI和MOBILE。详细区分
 	 * wifi、2g、3g、4g请查看函数：<BR>
-	 * @param context
 	 * @return int 网络类型
 	 */
-	public static int getNetConnectType(Context context) {
+	public static int getNetConnectType(Context con) {
 		int res = NETWORK_TYPE_UNKNOWN;
         final ConnectivityManager connMgr =
-				(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+				(ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE);
         final NetworkInfo wifi = connMgr.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         final NetworkInfo mobile = connMgr.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         if (((wifi != null) && wifi.isAvailable() && wifi.isConnectedOrConnecting())
@@ -62,13 +61,12 @@ public class NetUtil {
 	/**
 	 * 获取当前有效网络类型，能够详细区分WIFI、2G、3G等网络类型。如果想只区分
 	 * WIFI和MOBILE，请查看函数：
-	 * @param context
 	 * @return
 	 */
-	public static int getNetConnectSubType(Context context) {
+	public static int getNetConnectSubType(Context con) {
 		int type = NETWORK_TYPE_UNKNOWN;
 		int subtype = NETWORK_TYPE_UNKNOWN;
-		ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager connManager = (ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE);
 		final NetworkInfo activeNetInfo = connManager.getActiveNetworkInfo();
 		if ((activeNetInfo != null) && activeNetInfo.isConnectedOrConnecting()) {
 			type = activeNetInfo.getType();
@@ -117,56 +115,51 @@ public class NetUtil {
 
 	/**
 	 * 判断终端网络是否有效
-	 * @param context
 	 * @return boolean TRUE:代表网络有效
 	 */
-	public static boolean isNetConnected(Context context) {
-		return getNetConnectType(context)!=NETWORK_TYPE_UNKNOWN;
+	public static boolean isNetConnected(Context con) {
+		return getNetConnectType(con)!=NETWORK_TYPE_UNKNOWN;
 	}
 
 	/**
 	 * 判断当前网络的类型是否是移动网络
 	 *
-	 * @param context 上下文
 	 * @return 当前网络的类型是否是移动网络。false：当前没有网络连接或者网络类型不是移动网络
 	 */
-	public static boolean isMobileByType(Context context) {
-		return getCurrentNetworkType(context) == ConnectivityManager.TYPE_MOBILE;
+	public static boolean isMobileByType(Context con) {
+		return getCurrentNetworkType(con) == ConnectivityManager.TYPE_MOBILE;
 	}
 
 
 	/**
 	 * 获取当前网络的类型
 	 *
-	 * @param context 上下文
 	 * @return 当前网络的类型。具体类型可参照ConnectivityManager中的TYPE_BLUETOOTH、TYPE_MOBILE、TYPE_WIFI等字段。当前没有网络连接时返回NetworkUtils.NETWORK_TYPE_NO_CONNECTION
 	 */
-	public static int getCurrentNetworkType(Context context) {
+	public static int getCurrentNetworkType(Context con) {
 		NetworkInfo networkInfo
-				= ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+				= ((ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 		return networkInfo != null? networkInfo.getType(): NETWORK_TYPE_NO_CONNECTION;
 	}
 
 	/**
 	 * 获取当前网络的状态
 	 *
-	 * @param context 上下文
 	 * @return 当前网络的状态。具体类型可参照NetworkInfo.State.CONNECTED、NetworkInfo.State.CONNECTED.DISCONNECTED等字段。当前没有网络连接时返回null
 	 */
-	public static NetworkInfo.State getCurrentNetworkState(Context context) {
+	public static NetworkInfo.State getCurrentNetworkState(Context con) {
 		NetworkInfo networkInfo =
-				((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+				((ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 		return networkInfo != null ? networkInfo.getState() : null;
 	}
 
 	/**
 	 * 判断是否连接WIFI
-	 * @param context  上下文
 	 * @return  boolean
 	 */
-	public static boolean isWifiConnected(Context context) {
+	public static boolean isWifiConnected(Context con) {
 		ConnectivityManager connectivityManager =
-				(ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+				(ConnectivityManager) con.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo wifiNetworkInfo =
 				connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 		if (wifiNetworkInfo.isConnected()) {

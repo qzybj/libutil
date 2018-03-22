@@ -1,12 +1,15 @@
 package com.brady.libutil.device;
 
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.view.WindowManager;
@@ -23,12 +26,11 @@ import java.util.Enumeration;
 import java.util.Locale;
 
 
-
 /** Android系统工具类*/
 public class DeviceUtil {
-	private static String packageName = null ;
-	
-	private static String imei = null ;
+	private static String packageName = null;
+
+	private static String imei = null;
 
 	/**
 	 * 根据/system/bin/或/system/xbin目录下是否存在su文件判断是否已ROOT
@@ -36,7 +38,8 @@ public class DeviceUtil {
 	 */
 	public static boolean isRoot() {
 		try {
-			return new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();
+			return new File("/system/bin/su").exists()
+					|| new File("/system/xbin/su").exists();
 		} catch (Exception e) {
 			return false;
 		}
@@ -47,25 +50,26 @@ public class DeviceUtil {
 	 * @return
 	 */
 	public static int getScreenWidth() {
-		DisplayMetrics dm = new DisplayMetrics(  );
+		DisplayMetrics dm = new DisplayMetrics();
 		WindowManager wm = (WindowManager) UtilsManager.instance().getSystemService(Context.WINDOW_SERVICE);
 		wm.getDefaultDisplay().getMetrics(dm);
 		return dm.widthPixels;
 	}
+
 	/**
 	 * 获取屏幕高度
 	 * @return
 	 */
-    public static int getScreenHeight(Context context){
-    	DisplayMetrics dm = new DisplayMetrics();
-		WindowManager wm = (WindowManager) context
+	public static int getScreenHeight() {
+		DisplayMetrics dm = new DisplayMetrics();
+		WindowManager wm = (WindowManager) UtilsManager.instance()
 				.getSystemService(Context.WINDOW_SERVICE);
 		wm.getDefaultDisplay().getMetrics(dm);
 
-    return dm.heightPixels;
-    }
-    
-    /**
+		return dm.heightPixels;
+	}
+
+	/**
 	 * 获取当前手机的密度(float)
 	 * @return
 	 */
@@ -80,7 +84,7 @@ public class DeviceUtil {
 
 	/**
 	 * 获取当前手机的密度(int)
-	 * 
+	 *
 	 * @return
 	 */
 	public static float getDensityDpi() {
@@ -91,86 +95,102 @@ public class DeviceUtil {
 		windowManager.getDefaultDisplay().getMetrics(dm);
 		return dm.densityDpi;
 	}
-    
 
-    /**
-     * 获取系统版本
-     * @return string
-     */
-    @SuppressWarnings("deprecation")
-	public static String getSDKVersion(){
-         return Build.VERSION.SDK;
-    }
 
-    /**
-     * 获取数字类型的sdk版本号
-     * @return
-     */
-    public static int getSDKVerionCode(){
-        return Build.VERSION.SDK_INT;
-    }
+	/**
+	 * 获取系统版本
+	 * @return string
+	 */
+	@SuppressWarnings("deprecation")
+	public static String getSDKVersion() {
+		return Build.VERSION.SDK;
+	}
 
-    /**
-     * 获取手机型号
-     * @return
-     */
-    @SuppressWarnings("deprecation")
-	public static String getPhoneModel(){
-        return Build.VERSION.SDK;
-    }
-    
-    /**
-     * 获取手机号
-     * @return
-     */
-    public static String getPhoneNumber(){
+	/**
+	 * 获取数字类型的sdk版本号
+	 * @return
+	 */
+	public static int getSDKVerionCode() {
+		return Build.VERSION.SDK_INT;
+	}
+
+	/**
+	 * 获取手机型号
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static String getPhoneModel() {
+		return Build.VERSION.SDK;
+	}
+
+	/**
+	 * 获取手机号
+	 * @return
+	 */
+	public static String getPhoneNumber() {
 		TelephonyManager tm = (TelephonyManager) UtilsManager.instance()
 				.getSystemService(Context.TELEPHONY_SERVICE);
+		if (tm == null) {
+			return "";
+		}
+		if (ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED
+				&& ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			return "";
+		}
 		return tm.getLine1Number();
-    }
-    
-    /**
-     * 读取sim卡序列号  IMSI
-     */
-    public static String readSimSerialNum() {
-        TelephonyManager telephonyManager = null;
-        if (telephonyManager == null) {
-            telephonyManager = (TelephonyManager) UtilsManager.instance()
-                    .getSystemService(Context.TELEPHONY_SERVICE);
-        }
-        // telephonyManager.getSubscriberId();
-        return telephonyManager.getSimSerialNumber();
-    }
+	}
 
-    /**
-     * 读取手机串号  IMEI
-     * @return String 手机串号
-     */
-    public static String getIMEI() {
-    	if( StringUtil.isEmpty(imei)){
-    		//改成只取一次
-    		TelephonyManager telephonyManager = (TelephonyManager) UtilsManager.instance().getSystemService(Context.TELEPHONY_SERVICE);
-    		imei = telephonyManager.getDeviceId();
-    	}
-		return imei ;
-    }
-    
-    /**
-     * 获取当前操作系统的语言
-     * @return String 系统语言
-     */
-    public static String getSysLanguage() {
-        return Locale.getDefault().getLanguage();
-    }
-    
-    /**
-     * 获取运营商信息
-     * @return String 运营商信息
-     */
-    public static String getCarrier() {
+	/**
+	 * 读取sim卡序列号  IMSI
+	 */
+	public static String readSimSerialNum() {
+		TelephonyManager telephonyManager = null;
+		if (telephonyManager == null) {
+			telephonyManager = (TelephonyManager) UtilsManager.instance()
+					.getSystemService(Context.TELEPHONY_SERVICE);
+		}
+		// telephonyManager.getSubscriberId();
+		if (ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			return "";
+		}
+		return telephonyManager.getSimSerialNumber();
+	}
+
+	/**
+	 * 读取手机串号  IMEI
+	 * @return String 手机串号
+	 */
+	public static String getIMEI() {
+		if (StringUtil.isEmpty(imei)) {
+			//改成只取一次
+			TelephonyManager telephonyManager = (TelephonyManager) UtilsManager.instance().getSystemService(Context.TELEPHONY_SERVICE);
+			if (ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+				return "";
+			}
+			imei = telephonyManager.getDeviceId();
+		}
+		return imei;
+	}
+
+	/**
+	 * 获取当前操作系统的语言
+	 * @return String 系统语言
+	 */
+	public static String getSysLanguage() {
+		return Locale.getDefault().getLanguage();
+	}
+
+	/**
+	 * 获取运营商信息
+	 * @return String 运营商信息
+	 */
+	public static String getCarrier() {
 		TelephonyManager telManager = (TelephonyManager) UtilsManager.instance().getSystemService(Context.TELEPHONY_SERVICE);
-        String imsi = telManager.getSubscriberId();
-        if (imsi != null && !"".equals(imsi)) {
+		if (ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			return "";
+		}
+		String imsi = telManager.getSubscriberId();
+		if (imsi != null && !"".equals(imsi)) {
             if (imsi.startsWith("46000") || imsi.startsWith("46002")) {
 				// 因为移动网络编号46000下的IMSI已经用完，所以虚拟了一个46002编号，134/159号段使用了此编号
                 return "china_mobile";
@@ -198,8 +218,8 @@ public class DeviceUtil {
      * 得到手机IP地址
      * @return null 为无网络
      */
-    public static String getIPAddress() {
-    	int netConnectType = NetUtil.getNetConnectType(UtilsManager.instance());
+    public static String getIPAddress(Context con) {
+    	int netConnectType = NetUtil.getNetConnectType(con);
     	switch (netConnectType) {
     	case NetUtil.NETWORK_TYPE_UNKNOWN:{//no Net Connected
     		return null;
