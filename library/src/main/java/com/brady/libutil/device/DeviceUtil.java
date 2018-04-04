@@ -189,17 +189,19 @@ public class DeviceUtil {
 		if (ActivityCompat.checkSelfPermission(UtilsManager.instance(), Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 			return "";
 		}
-		String imsi = telManager.getSubscriberId();
-		if (imsi != null && !"".equals(imsi)) {
-            if (imsi.startsWith("46000") || imsi.startsWith("46002")) {
-				// 因为移动网络编号46000下的IMSI已经用完，所以虚拟了一个46002编号，134/159号段使用了此编号
-                return "china_mobile";
-            } else if (imsi.startsWith("46001")) {
-                return "china_unicom";
-            } else if (imsi.startsWith("46003")) {
-                return "china_telecom";
-            }
-        }
+		if(telManager!=null){
+			String imsi = telManager.getSubscriberId();
+			if (imsi != null && !"".equals(imsi)) {
+				if (imsi.startsWith("46000") || imsi.startsWith("46002")) {
+					// 因为移动网络编号46000下的IMSI已经用完，所以虚拟了一个46002编号，134/159号段使用了此编号
+					return "china_mobile";
+				} else if (imsi.startsWith("46001")) {
+					return "china_unicom";
+				} else if (imsi.startsWith("46003")) {
+					return "china_telecom";
+				}
+			}
+		}
         return "";
     }
 
@@ -247,11 +249,12 @@ public class DeviceUtil {
 
 	private static String getGPRSIpAddress() {
 		try {
-			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
-				NetworkInterface intf = en.nextElement();
-				for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
-					InetAddress inetAddress = enumIpAddr.nextElement();
-					if (!inetAddress.isLoopbackAddress()) {
+			for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+				NetworkInterface item = en.nextElement();
+				for (Enumeration<InetAddress> enumIpAddress = item.getInetAddresses(); enumIpAddress.hasMoreElements(); ) {
+					InetAddress inetAddress = enumIpAddress.nextElement();
+					if (inetAddress != null && !inetAddress.isLoopbackAddress()
+							&& inetAddress.getHostAddress() != null) {
 						return inetAddress.getHostAddress().toString();
 					}
 				}
@@ -267,15 +270,15 @@ public class DeviceUtil {
 	 * @return
 	 */
 	public static boolean isNetworkWork() {
-		ConnectivityManager mConnectivity =
-				(ConnectivityManager)UtilsManager.instance().
-						getSystemService(Context.CONNECTIVITY_SERVICE);
-		// 检查网络连接，如果无网络可用，就不需要进行连网操作等
-		NetworkInfo info = mConnectivity.getActiveNetworkInfo();
-		if (info == null/* || !info.isAvailable()*/) {
-			return false;
-		} else {
-			return true;
+		ConnectivityManager manager =
+				(ConnectivityManager)UtilsManager.instance().getSystemService(Context.CONNECTIVITY_SERVICE);
+		if(manager!=null){
+			// 检查网络连接，如果无网络可用，就不需要进行连网操作等
+			NetworkInfo info = manager.getActiveNetworkInfo();
+			if (info != null) {
+				return true;
+			}
 		}
+		return false;
 	}
 }

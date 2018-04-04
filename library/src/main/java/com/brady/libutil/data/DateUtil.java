@@ -8,7 +8,6 @@ import java.util.Locale;
 
 /**
  *
- * @author Cuckoo
  * @date 2017-03-08
  * @description
  *      和时间相关的工具类
@@ -16,7 +15,7 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    /** 格式   12:01*/
+    /** 格式  12:01*/
     public static String FORMAT_HM = "HH:mm";
 
     /** 格式  12:01:23 */
@@ -36,19 +35,15 @@ public class DateUtil {
     /** 格式  2010-12-01 23:15:06*/
     public static String FORMAT_YMDHMS = "yyyy-MM-dd HH:mm:ss";
 
-    /**  格式  20101201231506 */
+    /** 格式  20101201231506 */
     public static String FORMAT_YMDHMS_ALLNUMBER="yyyyMMddHHmmss";
 
     /**1秒的毫秒数*/
     public static final long SECOND = 1000L;
     /**1分钟的毫秒数*/
     public static final long MINUTE = 60*SECOND;
-
     /**一天的毫秒数*/
-    private static final long DAY_MS = 24*60*MINUTE;
-
-
-
+    public static final long DAY_MS = 24*60*MINUTE;
 
     /**
      * 获取当前时间，格式为12:01:23

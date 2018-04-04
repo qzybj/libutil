@@ -17,6 +17,10 @@ import java.util.WeakHashMap;
 
 /** 通过Java反射机制，动态给对象属性赋值，并获取属性值*/
 public class ClassReflectUtil {
+    /**复制字段*/
+    public static final String FIELD_COPY = "field_copy";
+    /**忽略字段*/
+    public static final String FIELD_IGNORE = "field_ignore";
 
     /**
      * 取Bean的属性和值对应关系的MAP
@@ -244,6 +248,48 @@ public class ClassReflectUtil {
             CLog.e(e);
         }
         return null;
+    }
+
+
+
+    /**
+     * 将 copyObj 中的内容复制到sourceObj
+     * 忽略添加 @ObjectReflect(ObjectReflectUtil.FIELD_IGNORE) 注解的字段，
+     * @param sourceObj
+     * @param copyObj
+     */
+    public static boolean mergeObject(Object sourceObj, Object copyObj) {
+        if (sourceObj == null || copyObj == null) {
+            return false;
+        }
+        if (sourceObj.getClass() != copyObj.getClass()) {
+            return false;
+        }
+        // 获取实体类的所有属性，返回Field数组
+        Field[] sourceField = sourceObj.getClass().getDeclaredFields();
+        Field[] copyField = copyObj.getClass().getDeclaredFields();
+        ObjectReflect annotationInfo = null;
+
+        for (int i = 0; i < sourceField.length; i++) {
+            //如果字段设定忽略，则不处理
+            annotationInfo = sourceField[i].getAnnotation(ObjectReflect.class);
+            if(annotationInfo!=null){
+                if(FIELD_IGNORE.equals(annotationInfo.value())){
+                    continue ;
+                }
+            }
+            if(sourceField[i]!=null&&copyField[i]!=null){
+                //复制值到
+                sourceField[i].setAccessible(true);
+                copyField[i].setAccessible(true);
+                try {
+                    sourceField[i].set(sourceObj, copyField[i].get(copyObj));
+                } catch (IllegalAccessException e) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

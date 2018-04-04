@@ -9,6 +9,7 @@ public class IntentUtil {
 	public static boolean isNotEmpty(Intent intent){
 		return !isEmpty(intent);
 	}
+
 	public static boolean isEmpty(Intent intent){
 		if (intent!=null&&intent.getExtras()!=null&&!intent.getExtras().isEmpty()) {
 			return false;
@@ -19,6 +20,7 @@ public class IntentUtil {
 	public static boolean isNotEmpty(Bundle extras){
 		return !isEmpty(extras);
 	}
+
 	public static boolean isEmpty(Bundle extras){
 		if (extras!=null&&!extras.isEmpty()) {
 			return false;
@@ -33,15 +35,15 @@ public class IntentUtil {
 		return null;
 	}
 
-	public static Intent setIString(Intent intent, String key, String value){
+	public static Intent setString(Intent intent, String key, String value){
 		if(intent==null){
 			intent = new Intent();
 		}
-		intent.putExtras(setBString(intent.getExtras(), key,value));
+		intent.putExtras(setString(intent.getExtras(), key,value));
 		return intent;
 	}
 
-	public static Bundle setBString(Bundle extras, String key, String value){
+	public static Bundle setString(Bundle extras, String key, String value){
 		if (extras==null) {
 			extras = new Bundle();
 		}

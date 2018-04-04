@@ -8,11 +8,12 @@ import com.brady.libutil.data.StringUtil;
 
 
 /**
- * 当前类注释:当前为SharedPerferences进行封装基本的方法,
- * SharedPerferences已经封装成单例模式
+ * 当前类注释:当前为 SharedPreferences 进行封装基本的方法,
+ * SharedPreferences 已经封装成单例模式
  */
 public class SPUtil {
-    public static String SHARED_PATH = "frame_shared";
+
+    protected static String SHARED_PATH = "frame_shared";
     private static SPUtil instance;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;

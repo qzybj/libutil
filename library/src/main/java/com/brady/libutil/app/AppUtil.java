@@ -21,6 +21,10 @@ public class AppUtil {
 
     private static PackageInfo mPackageInfo;
 
+    /**
+     * 获取安装包信息
+     * @return
+     */
     public static PackageInfo getPackageInfo(){
         if(mPackageInfo==null){
             try {

@@ -19,6 +19,7 @@ public class ListUtil {
 		}
 		return true;
 	}
+
 	public static boolean isNotEmpty(List<?> l){
 		return !isEmpty(l);
 	}
@@ -43,12 +44,14 @@ public class ListUtil {
 		}
 		return null;
 	}
+
 	public static boolean isEmptyArray(Object[] o){
 		if(o == null ||o.length == 0){
 			return true ;
 		}
 		return false;
 	}
+
 	public static boolean isNotEmptyArray(Object[] ol){
 		return !isEmptyArray(ol);
 	}
@@ -60,6 +63,7 @@ public class ListUtil {
 		}
 		return false ;
 	}
+
 	public static  <T> ArrayList<T> buildList(T... ol){
 		if (ol!=null&&ol.length>0) {
 				ArrayList<T> list = new ArrayList<T>();
